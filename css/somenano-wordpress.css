@@ -1,0 +1,8 @@
+#somenano-paywall {
+    max-width: 500px;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 5px 10px 8px #888888;
+    font-style: italic;
+}
