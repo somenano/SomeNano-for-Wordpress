@@ -27,7 +27,7 @@ function somenano_install()
         currency_amount varchar(20) NOT NULL,
         post_id mediumint(9) UNSIGNED NOT NULL,
         user_id smallint UNSIGNED NOT NULL,
-        block varchar(65) NOT NULL
+        block varchar(65) NOT NULL,
         PRIMARY KEY (token)
     ) $charset_collate;";
 

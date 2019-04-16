@@ -68,6 +68,9 @@ function paywall_truncate( $content )
     $shortcode_regex = "/\[somenano_paywall.*]/";
     $parts = preg_split($shortcode_regex, $content);
     preg_match($shortcode_regex, $content, $m);
+    if ( is_front_page() ) {
+        return $parts[0];
+    }
     return $parts[0] . $m[0];
 }
 
@@ -110,6 +113,10 @@ function paywall_shortcode( $atts )
         $ret .= $a['paid_note'];
         $ret .= '</div>';
         return $ret;
+    }
+
+    if ( is_front_page() ) {
+        return '';
     }
 
     $on_payment = 'document.getElementById("somenano-paywall-note").innerHTML = "Processing, please wait...";
