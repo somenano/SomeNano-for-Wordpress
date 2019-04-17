@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: SomeNano for Wordpress
- * Plugin URI: https://somenano.com
+ * Plugin URI: https://wordpress.somenano.com
  * Description: Accept Nano cryptocurrency as payment for users to view content on your Wordpress site
  * Version: 0.1.0
  * Author: Jason Pawlak
- * Author URI: https://github.com/pawapps
+ * Author URI: https://somenano.com
  */
 
 /*
@@ -20,12 +20,17 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-options.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-install.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-defaults.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'somenano-log.php' );
 
 register_activation_hook( __FILE__, 'somenano_install' );
 register_activation_hook( __FILE__, 'somenano_install_data' );
-add_action( 'the_content', 'paywall_truncate' );
+add_action( 'init', 'somenano_post_handler' );
+add_action( 'the_content', 'somenano_content_handler' );
 
-function enqueue_scripts()
+global $payment_success;
+$payment_success = false;
+
+function somenano_enqueue_scripts()
 {
     wp_register_script( 'somenano-wordpress.js', plugins_url( '/js/somenano-wordpress.js', __FILE__ ), array(), $somenano_version, true );
     wp_enqueue_script( 'somenano-wordpress.js' );
@@ -33,10 +38,10 @@ function enqueue_scripts()
     wp_register_style( 'somenano-wordpress.css', plugins_url('/css/somenano-wordpress.css', __FILE__), array(), $somenano_version, 'all' );
     wp_enqueue_style( 'somenano-wordpress.css' );
 }
-add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
-add_action( 'admin_enqueue_scripts', 'enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'somenano_enqueue_scripts' );
+add_action( 'admin_enqueue_scripts', 'somenano_enqueue_scripts' );
 
-function bypass_paywall()
+function somenano_bypass_paywall()
 {
     global $wpdb;
     $table_name = somenano_default('db_payments');
@@ -59,12 +64,23 @@ function bypass_paywall()
     return false;
 }
 
-function paywall_truncate( $content )
+function somenano_post_handler()
 {
-    if ( bypass_paywall() ) {
+    // Check for handling of payment
+    global $payment_success;
+    if ( isset( $_POST['token'] ) && isset( $_POST['post_id'] ) ) {
+        $payment_success = somenano_log( $_POST['token'], $_POST['post_id'] );
+    }
+}
+
+function somenano_content_handler( $content )
+{
+    // Check for bypass of paywall
+    if ( $payment_success || somenano_bypass_paywall() ) {
         return $content;
     }
 
+    // Paywall in place, truncate content
     $shortcode_regex = "/\[somenano_paywall.*]/";
     $parts = preg_split($shortcode_regex, $content);
     preg_match($shortcode_regex, $content, $m);
@@ -74,7 +90,7 @@ function paywall_truncate( $content )
     return $parts[0] . $m[0];
 }
 
-function paywall_shortcode( $atts )
+function somenano_paywall_shortcode( $atts )
 {
 
     $options = get_option( 'somenano_options' );
@@ -107,7 +123,7 @@ function paywall_shortcode( $atts )
         'paid_note' => $options['default_paywall_paid_note']
     ), $atts );
 
-    if ( bypass_paywall() ) {
+    if ( somenano_bypass_paywall() ) {
         if ( strlen($a['paid_note']) == 0 ) return '';
         $ret = '<div id="somenano-paywall">';
         $ret .= $a['paid_note'];
@@ -119,8 +135,10 @@ function paywall_shortcode( $atts )
         return '';
     }
 
+    global $wp;
+
     $on_payment = 'document.getElementById("somenano-paywall-note").innerHTML = "Processing, please wait...";
-log_payment("'. plugins_url( 'somenano-log.php', __FILE__ ) .'", data.token, '. get_the_ID() .');';
+log_payment("'. home_url( $wp->request ) .'", data.token, '. get_the_ID() .');';
 
     $ret = '<div id="somenano-paywall">';
     $ret .= '<div id="somenano-paywall-note">' . $a['preface'] . '</div>';
@@ -136,6 +154,6 @@ log_payment("'. plugins_url( 'somenano-log.php', __FILE__ ) .'", data.token, '. 
 
     return $ret;
 }
-add_shortcode( 'somenano_paywall', 'paywall_shortcode' );
+add_shortcode( 'somenano_paywall', 'somenano_paywall_shortcode' );
 
 ?>

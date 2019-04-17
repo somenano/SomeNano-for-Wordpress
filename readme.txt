@@ -1,6 +1,6 @@
 === SomeNano for Wordpress ===
 Contributors: pwlk
-Donate link: http://www.pwlk.net 
+Donate link: https://somenano.com
 Tags: nano, cryptocurrency, paywall, pay, wall, donation, donations, payment, money
 Requires at least: 4.6
 Tested up to: 5.1.1

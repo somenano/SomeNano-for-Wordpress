@@ -46,7 +46,7 @@ function log_payment(log_url, token, post_id)
         token: token,
         post_id: post_id
     };
-    post_request(log_url, data, function(xhr) {
+    post_request(window.location.href, data, function(xhr) {
         window.location.hash = '#somenano-paywall';
         window.location.reload(true);
     });

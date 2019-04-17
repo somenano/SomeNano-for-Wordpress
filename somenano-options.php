@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-brainblocks.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-defaults.php' );
 
-class MySettingsPage
+class SomeNanoSettingsPage
 {
     /**
      * Holds the values to be used in the fields callbacks
@@ -195,7 +195,7 @@ class MySettingsPage
 
         $account = isset( $this->options['default_paywall_account'] ) ? esc_attr( $this->options['default_paywall_account']) : '';
         $preface = isset( $this->options['default_paywall_preface'] ) ? esc_attr( $this->options['default_paywall_preface']) : somenano_default('paywall_preface');
-        $currency = isset( $this->options['default_paywall_currency'] ) ? esc_attr( $this->options['default_paywall_currency']) : somenano_default('paywall_curreny');
+        $currency = isset( $this->options['default_paywall_currency'] ) ? esc_attr( $this->options['default_paywall_currency']) : somenano_default('paywall_currency');
         $amount = isset( $this->options['default_paywall_amount'] ) ? esc_attr( $this->options['default_paywall_amount']) : somenano_default('paywall_amount');
         $paid_note = isset( $this->options['default_paywall_paid_note'] ) ? esc_attr( $this->options['default_paywall_paid_note']) : somenano_default('paywall_paid_note');
 
@@ -240,7 +240,7 @@ class MySettingsPage
     public function default_paywall_currency_callback()
     {
 
-        $value = isset( $this->options['default_paywall_currency'] ) ? esc_attr( $this->options['default_paywall_currency']) : somenano_default('paywall_curreny');
+        $value = isset( $this->options['default_paywall_currency'] ) ? esc_attr( $this->options['default_paywall_currency']) : somenano_default('paywall_currency');
         print( "<select id='default_paywall_currency' name='somenano_options[default_paywall_currency]'>" );
         foreach ( bb_currencies() as $cur ) {
             printf( "<option value='$cur' %s>$cur</option>", $cur == $value ? "selected" : "" );
@@ -288,4 +288,4 @@ class MySettingsPage
 }
 
 if( is_admin() )
-    $my_settings_page = new MySettingsPage();
+    $my_settings_page = new SomeNanoSettingsPage();
