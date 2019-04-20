@@ -83,9 +83,13 @@ class SomeNanoSettingsPage
             'somenano-settings' // Page
         );
 
+        $options = get_option( 'somenano_options' );
+        if ( !isset($options['default_paywall_account']) ) {
+            $alert = '<br><span style="color:red;">*Nano Account Required*</span>';
+        }
         add_settings_field(
             'default_paywall_account', // ID
-            'Nano Account for Paywall', // Title 
+            'Nano Account for Paywall'. $alert, // Title 
             array( $this, 'default_paywall_account_callback' ), // Callback
             'somenano-settings', // Page
             'setting_section_paywall' // Section           
@@ -141,7 +145,7 @@ class SomeNanoSettingsPage
             $new_input['default_paywall_account'] = sanitize_text_field( $input['default_paywall_account'] );
         }
 
-        if( isset( $input['default_paywall_currency'] ) && in_array( $input['default_paywall_currency'], bb_currencies() ) ) {
+        if( isset( $input['default_paywall_currency'] ) && in_array( $input['default_paywall_currency'], somenano_bb_currencies() ) ) {
             $new_input['default_paywall_currency'] = sanitize_text_field( $input['default_paywall_currency'] );
         }
 
@@ -202,15 +206,14 @@ class SomeNanoSettingsPage
         print '<div id="somenano-paywall">';
         if ( $account == '' ) print '<br>** SomeNano Error: Nano account required for paywall **';
         else print $preface;
-        print bb_button();
-        print '</div>';
-        print bb_script();
-        print bb_render(
+        somenano_bb_render(
             $currency,
             $amount,
             $account,
             ''
         );
+        print somenano_bb_button();
+        print '</div>';
         print '</p>';
         print '<p>And this is what your currently saved Paywall looks like after a payment is made:';
         print '<div id="somenano-paywall">';
@@ -242,7 +245,7 @@ class SomeNanoSettingsPage
 
         $value = isset( $this->options['default_paywall_currency'] ) ? esc_attr( $this->options['default_paywall_currency']) : somenano_default('paywall_currency');
         print( "<select id='default_paywall_currency' name='somenano_options[default_paywall_currency]'>" );
-        foreach ( bb_currencies() as $cur ) {
+        foreach ( somenano_bb_currencies() as $cur ) {
             printf( "<option value='$cur' %s>$cur</option>", $cur == $value ? "selected" : "" );
         }
         print( "</select>" );

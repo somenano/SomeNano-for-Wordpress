@@ -4,25 +4,25 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // REF: https://brainblocks.io/
 
-function bb_currencies()
+function somenano_enqueue_bb_scripts()
+{
+    wp_register_script( 'brainblocks.min.js', 'https://brainblocks.io/brainblocks.min.js', array(), current_time( 'YmdHis' ), true );
+    wp_enqueue_script( 'brainblocks.min.js' );
+}
+
+function somenano_bb_currencies()
 {
     return array("aed", "afn", "all", "amd", "ang", "aoa", "ars", "aud", "awg", "azn", "bam", "bbd", "bch", "bdt", "bgn", "bhd", "bif", "bmd", "bnd", "bob", "brl", "bsd", "btc", "btn", "bwp", "bzd", "cad", "cdf", "chf", "clf", "clp", "cny", "cop", "crc", "cup", "cve", "czk", "djf", "dkk", "dop", "dzd", "egp", "etb", "eur", "fjd", "fkp", "gbp", "gel", "ghs", "gip", "gmd", "gnf", "gtq", "gyd", "hkd", "hnl", "hrk", "htg", "huf", "idr", "ils", "inr", "iqd", "irr", "isk", "jep", "jmd", "jod", "jpy", "kes", "kgs", "khr", "kmf", "kpw", "krw", "kwd", "kyd", "kzt", "lak", "lbp", "lkr", "lrd", "lsl", "lyd", "mad", "mdl", "mga", "mkd", "mmk", "mnt", "mop", "mru", "mur", "mvr", "mwk", "mxn", "myr", "mzn", "nad", "ngn", "nio", "nok", "npr", "nzd", "omr", "pab", "pen", "pgk", "php", "pkr", "pln", "pyg", "qar", "rai", "ron", "rsd", "rub", "rwf", "sar", "sbd", "scr", "sdg", "sek", "sgd", "shp", "sll", "sos", "srd", "stn", "svc", "syp", "szl", "thb", "tjs", "tmt", "tnd", "top", "try", "ttd", "twd", "tzs", "uah", "ugx", "usd", "uyu", "uzs", "vef", "vnd", "vuv", "wst", "xaf", "xag", "xau", "xcd", "xof", "xpf", "yer", "zar", "zmw", "zwl");
 }
 
-function bb_button()
+function somenano_bb_button()
 {
     return '<div id="nano-button"></div>';
 }
 
-function bb_script()
+function somenano_bb_render( $currency, $amount, $destination, $onPayment )
 {
-    return '<script src="https://brainblocks.io/brainblocks.min.js"></script>';
-}
-
-function bb_render( $currency, $amount, $destination, $onPayment )
-{
-    return '<script type="text/javascript">
-            brainblocks.Button.render({
+    wp_add_inline_script( 'brainblocks.min.js', 'brainblocks.Button.render({
 
                 payment: {
                     currency: "' . $currency . '",
@@ -36,11 +36,10 @@ function bb_render( $currency, $amount, $destination, $onPayment )
                         ' . $onPayment . '
                     }
                 }
-            }, "#nano-button");
-        </script>';
+            }, "#nano-button");' );
 }
 
-function bb_token( $token )
+function somenano_bb_token( $token )
 {
     /*
     {
