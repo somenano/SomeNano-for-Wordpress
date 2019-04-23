@@ -67,6 +67,11 @@ function somenano_log($token, $post_id)
     }
 
     $token_data = somenano_bb_token( $token );
+    if ( $token_data == false ) {
+        error_log('somenano-log: BrainBlocks did not return successfully');
+        return false;
+    }
+
     if ( array_key_exists('status', $token_data) && $token_data['status'] == 'error' ) {
         error_log('somenano-log: BrainBlocks returned error status');
         return false;

@@ -30,6 +30,9 @@ add_action( 'the_content', 'somenano_content_handler' );
 global $payment_success;
 $payment_success = false;
 
+global $payment_posted;
+$payment_posted = false;
+
 function somenano_enqueue_scripts()
 {
     wp_register_script( 'somenano-wordpress.js', plugins_url( '/js/somenano-wordpress.js', __FILE__ ), array(), $somenano_version, true );
@@ -84,10 +87,10 @@ function somenano_bypass_paywall()
 
     // Is cookie set?
     $cookie_name = somenano_default('cookie_prefix').get_the_ID();
-
-    if(!isset($_COOKIE[$cookie_name])) {
+    if(!isset($_COOKIE[$cookie_name]) || !ctype_alnum($_COOKIE[$cookie_name])) {
         return false;
     }
+
     $sql = 'select count(*) from ' . $table_name . ' where token = "' . $_COOKIE[$cookie_name] . '" and post_id = ' . get_the_ID();
     $num_rows = $wpdb->get_var( $sql );
     if ( $num_rows > 0 ) return true;
@@ -98,8 +101,23 @@ function somenano_bypass_paywall()
 function somenano_post_handler()
 {
     // Check for handling of payment
-    global $payment_success;
     if ( isset( $_POST['token'] ) && isset( $_POST['post_id'] ) ) {
+
+        // Sanitize/reject invalid inputs
+        if ( !ctype_alnum($_POST['token']) ) {
+            error_log('somenano_post_handler: token has invalid characters');
+            return;
+        }
+
+        if ( !is_numeric($_POST['post_id']) ) {
+            error_log('somenano_post_handler: post_id is invalid');
+            return;
+        }
+
+        // Handle inputs
+        global $payment_posted;
+        $payment_posted = true;
+        global $payment_success;
         $payment_success = somenano_log( $_POST['token'], $_POST['post_id'] );
     }
 }
@@ -180,8 +198,14 @@ log_payment("'. home_url( $wp->request ) .'", data.token, '. get_the_ID() .');';
         $a['account'],
         $on_payment
     );
+
+    $error = '';
+    if ( $payment_posted && !$payment_success ) {
+        $error = 'Error validating payment. Please contact site admin for refund and try again.<b>';
+    }
+
     $ret = '<div id="somenano-paywall">';
-    $ret .= '<div id="somenano-paywall-note">' . $a['preface'] . '</div>';
+    $ret .= '<div id="somenano-paywall-note">' . $error . $a['preface'] . '</div>';
     $ret .= '<div>' . somenano_bb_button() . '</div>';
     $ret .= '</div>';
 

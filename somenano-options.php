@@ -152,7 +152,6 @@ class SomeNanoSettingsPage
         if( isset( $input['default_paywall_amount'] ) && is_numeric( $input['default_paywall_amount'] ) ) {
             if ( substr($input['default_paywall_amount'], 0, 1) == '.' ) {
                 $input['default_paywall_amount'] = '0' . $input['default_paywall_amount'];
-                error_log($input['default_paywall_amount']);
             }
             $new_input['default_paywall_amount'] = sanitize_text_field( $input['default_paywall_amount'] );
         }

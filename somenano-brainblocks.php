@@ -57,7 +57,13 @@ function somenano_bb_token( $token )
     */
     $url = "https://api.brainblocks.io/api/session/" . $token . "/verify";
     $response = wp_remote_get( esc_url_raw( $url ), array('blocking' => true, 'timeout' => 30) );
-    return json_decode( wp_remote_retrieve_body( $response ), true );
+    if ( is_array( $response ) && ! is_wp_error( $response ) ) {
+        return json_decode( wp_remote_retrieve_body( $response ), true );
+    } else {
+        error_log('somenano_bb_token: Error retrieving token data from BrainBlocks');
+        error_log('somenano_bb_token: '. json_encode( $response ));
+        return false;
+    }
 }
 
 ?>
