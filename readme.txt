@@ -1,4 +1,4 @@
-=== SomeNano for Wordpress ===
+=== SomeNano for WordPress ===
 Contributors: pwlk
 Donate link: https://somenano.com
 Tags: nano, cryptocurrency, paywall, pay, wall, donation, donations, payment, money
@@ -9,18 +9,19 @@ Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Accept Nano Cryptocurrency on your Wordpress site. Set up a paywall so content on posts or pages is hidden until the user pays.
+Accept Nano Cryptocurrency on your WordPress site. Set up a paywall so content on posts or pages is hidden until the user pays an amount of Nany.
 
 == Description ==
 
-SomeNano for Wordpress is a Plugin that will allow you to accept Nano cryptocurrency as payment on your Wordpress site.
+SomeNano for WordPress is a Plugin that will allow you to accept Nano cryptocurrency as payment on your WordPress site.
 
 Some different ways that you can accept payment is...
 
 * Paywall on a blog post - require a user to make a payment to view the full content of a blog post.
 * Paywall on a page - require a user to make a payment to view some or all of the content on a page.
+* Paywall for an image - require a user to make a payment to view a premium image, perhaps an image without a watermark.
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Demo site with example usage can be found here: [wordpress.somenano.com](https://wordpress.somenano.com).
 
 == Installation ==
 
@@ -60,3 +61,8 @@ Example:
 
 0.1.0
 * Initial beta release
+
+== Upgrade Notice ==
+
+= 0.1.0 =
+Initial release
