@@ -1,0 +1,13 @@
+.dbtable table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+.dbtable th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+.dbtable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

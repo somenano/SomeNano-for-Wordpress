@@ -9,7 +9,7 @@ Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Accept Nano Cryptocurrency on your WordPress site. Set up a paywall so content on posts or pages is hidden until the user pays an amount of Nany.
+Accept Nano Cryptocurrency on your WordPress site. Set up a paywall so content on posts or pages is hidden until the user pays an amount of Nano.
 
 == Description ==
 
@@ -50,6 +50,10 @@ Example:
 * Override default values: `[somenano_paywall currency="usd" amount="0.10"]`
 * Use default values: `[somenano_paywall]`
 
+= My payment goes through but the paywall stays =
+
+This is likely due to a plugin conflict, probably a caching plugin.  Disable caching plugins (and possibly others) to verify that is the problem.  Many caching plugins let you set exceptions, you should do this for pages or posts that have a paywall.  Read more about about caching plugin conflicts here: [Caching Plugins and SomeNano for Wordpress](https://somenano.com/index.php/2019/04/24/caching-plugins-and-somenano-for-wordpress/)
+
 == Screenshots ==
 
 1. A paywall will appear on a post or page.  All content below the paywall will not be visible until the payment has been made.
@@ -59,10 +63,16 @@ Example:
 
 == Changelog ==
 
+0.1.1
+* Added database table in the settings to view paid transactions. Will be prettied up in later releases.
+
 0.1.0
 * Initial beta release
 
 == Upgrade Notice ==
+
+= 0.1.1 =
+Added database table in the settings to view paid transactions.
 
 = 0.1.0 =
 Initial release

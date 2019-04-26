@@ -1,19 +1,12 @@
 <?php
 /**
  * Plugin Name: SomeNano for Wordpress
- * Plugin URI: https://wordpress.somenano.com
+ * Plugin URI: https://wordpress.org/plugins/somenano/
  * Description: Accept Nano cryptocurrency as payment for users to view content on your Wordpress site
- * Version: 0.1.0
- * Author: Jason Pawlak
+ * Version: 0.1.1
+ * Author: SomeNano
  * Author URI: https://somenano.com
  */
-
-/*
- Ideas/Todo:
- - Author Nano Account
- - Donation widget
- - Post donation
-*/
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
@@ -46,6 +39,13 @@ add_action( 'admin_enqueue_scripts', 'somenano_enqueue_scripts' );
 add_action( 'wp_enqueue_scripts', 'somenano_enqueue_bb_scripts' );
 add_action( 'admin_enqueue_scripts', 'somenano_enqueue_bb_scripts' );
 
+function somenano_enqueue_admin_scripts()
+{
+    wp_register_style( 'somenano-admin.css', plugins_url('/css/somenano-admin.css', __FILE__), array(), $somenano_version, 'all' );
+    wp_enqueue_style( 'somenano-admin.css' );
+}
+add_action( 'admin_enqueue_scripts', 'somenano_enqueue_admin_scripts' );
+
 function somenano_ready()
 {
     // Check is somenano plugin is ready for use
@@ -69,7 +69,6 @@ function somenano_action_links( $links )
         '<a href="' . esc_url( admin_url( '/options-general.php?page=somenano-settings' ) ) . '">' . __( 'Settings', 'textdomain' ) . '</a>'
     ), $links );
     return $links;
-    //http://bunnyweb/wp-admin/options-general.php?page=somenano-settings
 }
 add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'somenano_action_links' );
 

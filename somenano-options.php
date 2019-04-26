@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-brainblocks.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'somenano-defaults.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'somenano-dbview.php' );
 
 class SomeNanoSettingsPage
 {
@@ -43,15 +44,24 @@ class SomeNanoSettingsPage
     {
         // Set class property
         $this->options = get_option( 'somenano_options' );
+        $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'settings';
         ?>
         <div class="wrap">
             <h1>SomeNano for Wordpress Settings</h1>
+            <h2 class="nav-tab-wrapper">
+                <a href="?page=somenano-settings&tab=settings" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>">Settings</a>
+                <a href="?page=somenano-settings&tab=database" class="nav-tab <?php echo $active_tab == 'database' ? 'nav-tab-active' : ''; ?>">Database</a>
+            </h2>
             <form method="post" action="options.php">
             <?php
                 // This prints out all hidden setting fields
-                settings_fields( 'my_option_group' );
-                do_settings_sections( 'somenano-settings' );
-                submit_button();
+                if ( $active_tab == 'settings' ) {
+                    settings_fields( 'my_option_group' );
+                    do_settings_sections( 'somenano-settings' );
+                    submit_button();
+                } elseif ( $active_tab == 'database' ) {
+                    somenano_show_payments_table();
+                }
             ?>
             </form>
         </div>

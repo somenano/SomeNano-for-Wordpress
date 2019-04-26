@@ -10,7 +10,7 @@ global $somenano_db_version;
 $somenano_db_version = '1.0.0';
 
 global $somenano_version;
-$somenano_version = '0.1.0';
+$somenano_version = '0.1.1';
 
 function somenano_install()
 {
