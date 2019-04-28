@@ -44,6 +44,46 @@ function somenano_show_payments_data()
     print $content;
 }
 
+function somenano_show_payments_top()
+{
+    global $wpdb;
+    $table_name = somenano_default('db_payments');
+    $results = $wpdb->get_results( ' SELECT post_id, received_rai FROM '. $table_name );
+    $num_per_post = array();
+    $amount_per_post = array();
+
+    foreach ( $results as $row ) {
+        if ( array_key_exists( $row->post_id, $num_per_post ) ) {
+            $num_per_post[ $row->post_id ] += 1;
+            $amount_per_post[ $row->post_id ] += $row->received_rai;
+        } else {
+            $num_per_post[ $row->post_id ] = 1;
+            $amount_per_post[ $row->post_id ] = $row->received_rai;
+        }
+    }
+    arsort( $num_per_post );
+    $num_per_post = array_slice( $num_per_post, 0, 10, true );
+
+    $content = '
+    <table class="somenano-top">
+        <tr>
+            <th>Post</th>
+            <th># Payments</th>
+            <th>Total Received rai</th>
+        </tr>';
+
+    foreach ( $num_per_post as $post_id => $pay_count ) {
+        $content .= '<tr>';
+        $content .= '<td><a href="'. get_permalink( $post_id ) .'" target="_new">'. get_the_title( $post_id ) .'</a></td>';
+        $content .= '<td>'. $pay_count .'</td>';
+        $content .= '<td>'. $amount_per_post[ $post_id ] .'</td>';
+        $content .= '</tr>';
+    }
+
+    $content .= '</table>';
+    print $content;
+}
+
 function somenano_show_payments_table()
 {
     global $wpdb;

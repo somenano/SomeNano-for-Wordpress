@@ -62,7 +62,9 @@ class SomeNanoSettingsPage
                 } elseif ( $active_tab == 'database' ) {
                     print '<h3>Payments Stats</h3>';
                     somenano_show_payments_data();
-                    print '<h3>Payments Data</h3>';
+                    print '<hr><h3>Top 10 Payment Pages</h3>';
+                    somenano_show_payments_top();
+                    print '<hr><h3>Payments Data</h3>';
                     somenano_show_payments_table();
                 }
             ?>

@@ -1,20 +1,15 @@
-table.somenano-dbtable {
+table.somenano-dbtable, table.somenano-stats-table, table.somenano-top {
     border-collapse: collapse;
     width:100%;
 }
 
-table.somenano-dbtable th, table.somenano-dbtable td {
+table.somenano-dbtable th, table.somenano-dbtable td, table.somenano-stats-table th, table.somenano-stats-table td, table.somenano-top th, table.somenano-top td {
     text-align: left;
     padding: 8px;
 }
 
-table.somenano-dbtable tr:nth-child(even) {
+table.somenano-dbtable tr:nth-child(even), table.somenano-top tr:nth-child(even) {
     background-color: #dddddd;
-}
-
-table.somenano-stats-table {
-    border-collapse: collapse;
-    width: 100%;
 }
 
 table.somenano-stats-table th {
@@ -24,9 +19,4 @@ table.somenano-stats-table th {
 table.somenano-stats-table td {
     font-size: 1.3em;
     background-color: #dddddd;
-}
-
-table.somenano-stats-table th, table.somenano-stats-table td {
-    text-align: left;
-    padding: 8px;
 }
