@@ -60,6 +60,7 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 2. Once paid, the paywall goes away.  You can show a message thanking the user in place of the paywall, or just leave it blank.
 3. A simple shortcode is added to a post or page.  Attributes can be customized in the shortcode to override the defaults.
 4. Settings page allows default values to be set.
+5. View all payments made to the posts and pages on your site.
 
 == Changelog ==
 
