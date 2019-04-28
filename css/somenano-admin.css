@@ -1,13 +1,32 @@
-.dbtable table {
+table.somenano-dbtable {
     border-collapse: collapse;
     width:100%;
 }
 
-.dbtable th, td {
+table.somenano-dbtable th, table.somenano-dbtable td {
     text-align: left;
     padding: 8px;
 }
 
-.dbtable tr:nth-child(even) {
-    background-color: #f2f2f2;
+table.somenano-dbtable tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+table.somenano-stats-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.somenano-stats-table th {
+    font-size: 1.5em;
+}
+
+table.somenano-stats-table td {
+    font-size: 1.3em;
+    background-color: #dddddd;
+}
+
+table.somenano-stats-table th, table.somenano-stats-table td {
+    text-align: left;
+    padding: 8px;
 }

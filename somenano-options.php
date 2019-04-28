@@ -60,6 +60,9 @@ class SomeNanoSettingsPage
                     do_settings_sections( 'somenano-settings' );
                     submit_button();
                 } elseif ( $active_tab == 'database' ) {
+                    print '<h3>Payments Stats</h3>';
+                    somenano_show_payments_data();
+                    print '<h3>Payments Data</h3>';
                     somenano_show_payments_table();
                 }
             ?>
