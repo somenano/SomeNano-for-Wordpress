@@ -2,6 +2,12 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+function somenano_rai_to_nano( $rai )
+{
+    // 1,000,000 rai == 1 Nano
+    return $rai / 1000000.0;
+}
+
 function somenano_truncate_string( $string, $start_length, $end_length )
 {
     if ( strlen($string) <= $start_length+$end_length ) return $string;
@@ -30,12 +36,12 @@ function somenano_show_payments_data()
     $content = '
     <table class="somenano-stats-table">
         <tr>
-            <th>Total rai</th>
+            <th>Total Nano</th>
             <th># Unique Users</th>
             <th># Anon payments</th>
         </tr>
         <tr>
-            <td>'. $total_rai .'</td>
+            <td>'. somenano_rai_to_nano( $total_rai ) .' Nano</td>
             <td>'. count( $users ) .'</td>
             <td>'. $num_anon_users .'</td>
         </tr>
@@ -69,14 +75,14 @@ function somenano_show_payments_top()
         <tr>
             <th>Post</th>
             <th># Payments</th>
-            <th>Total Received rai</th>
+            <th>Total Received Nano</th>
         </tr>';
 
     foreach ( $num_per_post as $post_id => $pay_count ) {
         $content .= '<tr>';
         $content .= '<td><a href="'. get_permalink( $post_id ) .'" target="_new">'. get_the_title( $post_id ) .'</a></td>';
         $content .= '<td>'. $pay_count .'</td>';
-        $content .= '<td>'. $amount_per_post[ $post_id ] .'</td>';
+        $content .= '<td>'. somenano_rai_to_nano( $amount_per_post[ $post_id ] ) .' Nano</td>';
         $content .= '</tr>';
     }
 
@@ -93,7 +99,7 @@ function somenano_show_payments_table()
     <table class="somenano-dbtable">
         <tr>
             <th>Timestamp</th>
-            <th>Received rai</th>
+            <th>Received Nano</th>
             <th>Currency</th>
             <th>Currency Amount</th>
             <th>Page/Post</th>
@@ -104,7 +110,7 @@ function somenano_show_payments_table()
     foreach ( $results as $row ) {
         $content .= '<tr>';
         $content .= '<td>'. $row->dtg .'</td>';
-        $content .= '<td>'. $row->received_rai .'</td>';
+        $content .= '<td>'. somenano_rai_to_nano( $row->received_rai ) .' Nano</td>';
         $content .= '<td>'. $row->currency .'</td>';
         $content .= '<td>'. $row->currency_amount .'</td>';
         $content .= '<td><a href="'. get_permalink( $row->post_id ) .'" target="_new">'. get_the_title( $row->post_id ) .'</a></td>';
