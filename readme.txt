@@ -65,6 +65,11 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 
 == Changelog ==
 
+0.1.2
+* New admin screen for viewing history and metrics of payments
+* Minor style fixes
+* Demo gif added
+
 0.1.1
 * Added database table in the settings to view paid transactions. Will be prettied up in later releases.
 
@@ -72,6 +77,9 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 * Initial beta release
 
 == Upgrade Notice ==
+
+= 0.1.2 =
+New admin screen for viewing history and metrics of payments and minor style fixes
 
 = 0.1.1 =
 Added database table in the settings to view paid transactions.
