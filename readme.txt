@@ -56,11 +56,12 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 
 == Screenshots ==
 
-1. A paywall will appear on a post or page.  All content below the paywall will not be visible until the payment has been made.
-2. Once paid, the paywall goes away.  You can show a message thanking the user in place of the paywall, or just leave it blank.
-3. A simple shortcode is added to a post or page.  Attributes can be customized in the shortcode to override the defaults.
-4. Settings page allows default values to be set.
-5. View all payments made to the posts and pages on your site.
+1. Demonstration of how a user makes a payment.  This demo uses the VANO wallet browser extension.
+2. A paywall will appear on a post or page.  All content below the paywall will not be visible until the payment has been made.
+3. Once paid, the paywall goes away.  You can show a message thanking the user in place of the paywall, or just leave it blank.
+4. A simple shortcode is added to a post or page.  Attributes can be customized in the shortcode to override the defaults.
+5. Settings page allows default values to be set.
+6. View all payments made to the posts and pages on your site.
 
 == Changelog ==
 
