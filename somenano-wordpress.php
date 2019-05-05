@@ -129,7 +129,7 @@ function somenano_content_handler( $content )
     }
 
     // Paywall in place, truncate content
-    $shortcode_regex = "/\[somenano_paywall.*]/";
+    $shortcode_regex = "/\[somenano_paywall(?!_).*]/";
     $parts = preg_split($shortcode_regex, $content);
     preg_match($shortcode_regex, $content, $m);
     if ( is_front_page() ) {
