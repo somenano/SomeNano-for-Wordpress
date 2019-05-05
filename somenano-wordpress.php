@@ -212,4 +212,19 @@ log_payment("'. home_url( $wp->request ) .'", data.token, '. get_the_ID() .');';
 }
 add_shortcode( 'somenano_paywall', 'somenano_paywall_shortcode' );
 
+function somenano_paywall_numpaid_shortcode( $atts )
+{
+    $ret = '';
+
+    global $wpdb;
+    $table_name = somenano_default('db_payments');
+
+    $sql = 'select count(*) from ' . $table_name . ' where post_id = ' . get_the_ID();
+    $num_rows = $wpdb->get_var( $sql );
+    $ret .= $num_rows;
+
+    return $ret;
+}
+add_shortcode( 'somenano_paywall_numpaid', 'somenano_paywall_numpaid_shortcode' );
+
 ?>

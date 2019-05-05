@@ -23,6 +23,11 @@ Some different ways that you can accept payment is...
 
 Demo site with example usage can be found here: [wordpress.somenano.com](https://wordpress.somenano.com).
 
+Shortcodes:
+
+* `[somenano_paywall]`: Insert a paywall in your post/page.  All content below paywall will not be visible until payment is made.
+* `[somenano_paywall_numpaid]`: Insert number of payments made on that post/page.
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/somenano-wordpress` directory, or install the plugin through the WordPress plugins screen directly.
