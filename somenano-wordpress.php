@@ -3,7 +3,7 @@
  * Plugin Name: SomeNano for Wordpress
  * Plugin URI: https://wordpress.org/plugins/somenano/
  * Description: Accept Nano cryptocurrency as payment for users to view content on your Wordpress site
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: SomeNano
  * Author URI: https://somenano.com
  */
