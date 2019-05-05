@@ -70,6 +70,9 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 
 == Changelog ==
 
+0.1.4
+* Regex error fix
+
 0.1.3
 * New shortcode somenano_paywall_numpaid inserts number of payments for particular post/page
 
@@ -85,6 +88,9 @@ This is likely due to a plugin conflict, probably a caching plugin.  Disable cac
 * Initial beta release
 
 == Upgrade Notice ==
+
+= 0.1.4 =
+Regex error fix
 
 = 0.1.3 =
 New shortcode somenano_paywall_numpaid inserts number of payments for particular post/page
